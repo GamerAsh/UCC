@@ -206,36 +206,36 @@ background-color: #638cd6;
     ul.users li {
         list-style: none;
     }
-/*     micropost styling*/
+/*     thought styling*/
 
-    h1.micropost {
+    h1.thought {
     margin-bottom: 0.3em;
     }
-    table.microposts {
+    table.thoughts {
     margin-top: 1em;
     }
-    table.microposts tr {
+    table.thoughts tr {
     height: 70px;
     background-color: white;
 
     }
-    table.microposts td {
+    table.thoughts td {
     height: 70px;
     background-color: white;
 
     }
-    table.microposts tr td.gravatar {
+    table.thoughts tr td.gravatar {
     border-top: 1px solid #000;
     vertical-align: top;
     width: 50px;
     }
-    table.microposts tr td.micropost {
+    table.thoughts tr td.thought {
     border-top: 1px solid #000;
     vertical-align: top;
     background-color: white;
     padding-top: 10px;
     }
-    table.microposts tr td.micropost span.timestamp {
+    table.thoughts tr td.thought span.timestamp {
     display: block;
     font-size: 80%;
     color: red;
@@ -249,13 +249,13 @@ background-color: #638cd6;
     div.user_info span.user_name {
     position: absolute;
     }
-    div.user_info span.microposts {
+    div.user_info span.thoughts {
     font-size: 80%;
     }
-    form.new_micropost {
+    form.new_thought {
     margin-bottom: 2em;
     }
-    form.new_micropost textarea {
+    form.new_thought textarea {
     height: 4em;
     margin-bottom: 0;
     }
