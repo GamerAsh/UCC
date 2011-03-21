@@ -5,9 +5,9 @@ describe User do
   before(:each) do
     @attr =     {
     :name => "Example User",
-    :email => "User@example.com",
-    :password => "foobar",
-    :password_confirmation => "foobar"
+    :email => "User@blackburn.ac.uk",
+    :password => "testing",
+    :password_confirmation => "testing"
     }
   end
   it "should create a new instance given a valid attr" do
@@ -31,7 +31,7 @@ describe User do
   end
   
   it "should accept valid email addresses" do
-    addresses = %w[user@foo.com THE_USER@foor.bar.org first.last@foo.jp]
+    addresses = %w[user@blackburn.ac.uk THE_USER@blackburn.ac.uk first.last@blackburn.ac.uk]
     addresses.each do |address|
        valid_email_user = User.new(@attr.merge(:email => address))
        valid_email_user.should be_valid
@@ -165,26 +165,26 @@ describe User do
     end
 
   end
-  describe "micropost associations" do
+  describe "thought associations" do
     before(:each) do
       @user = User.create(@attr)
-      @mp1 = Factory(:micropost, :user => @user, :created_at => 1.day.ago)
-      @mp2 = Factory(:micropost, :user => @user, :created_at => 1.hour.ago)
+      @t1 = Factory(:thought, :user => @user, :created_at => 1.day.ago)
+      @t2 = Factory(:thought, :user => @user, :created_at => 1.hour.ago)
     end
 
-    it "should have a micrpost attr" do
-      @user.should respond_to(:microposts)
+    it "should have a thought attr" do
+      @user.should respond_to(:thoughts)
     end
 
-    it "should have the right microposts in the right order" do
-      @user.microposts.should == [@mp2, @mp1]
+    it "should have the right thoughts in the right order" do
+      @user.thoughts.should == [@t2, @t1]
     end
 
-    it "should destroy accociated Microposts" do
+    it "should destroy accociated thoughts" do
       @user.destroy
-      [@mp1, @mp2].each do |micropost|
+      [@t1, @t2].each do |thought|
         lambda do
-          Micropost.find(micropost)
+          Thought.find(thought)
         end.should raise_error(ActiveRecord::RecordNotFound)
       end
         
@@ -195,74 +195,16 @@ describe User do
       @user.should respond_to(:feed)
     end
 
-      it "should include the users MPS" do
-        @user.feed.should include(@mp1)
-        @user.feed.should include(@mp2)
+      it "should include the users thoughts" do
+        @user.feed.should include(@t1)
+        @user.feed.should include(@t2)
       end
 
-      it "should not include a different user's microposts" do
-        @mp3 = Factory(:micropost, :user => Factory(:user,
-                      :email => Factory.next(:email)))
-        @user.feed.should_not include(@mp3)
-      end
 
-      it "should include the microposts of followed users" do
-        followed = Factory(:user, :email => Factory.next(:email))
-        @mp3 = Factory(:micropost, :user => followed)
-        @user.follow!(followed)
-        @user.feed.should include(@mp3)
-      end
   end
 
   end
 
-  describe "relationships" do
-    before(:each) do
-      @user = User.create!(@attr)
-      @followed = Factory(:user)
-    end
-
-    it "should have a relationships method" do
-      @user.should respond_to(:relationships)
-    end
-
-    it "should have a following method" do
-      @user.should respond_to(:following)
-    end
-
-    it "should follow another user" do
-      @user.follow!(@followed)
-      @user.should be_following(@followed)
-    end
-
-    it "should include the followed user in the following array" do
-      @user.follow!(@followed)
-      @user.following.should include(@followed)
-    end
-
-    it "should have a unfollow method" do
-      @user.should respond_to (:unfollow!)
-    end
-
-    it "should unfollow a user" do
-      @user.follow!(@followed)
-      @user.unfollow!(@followed)
-      @user.should_not be_following(@followed)
-    end
-
-    it "should have a reverse relationships method" do
-      @user.should respond_to(:reverse_relationships)
-    end
-
-    it "should have a followers method" do
-      @user.should respond_to(:followers)
-    end
-
-    it "should include the follower in the followers array" do
-      @user.follow!(@followed)
-      @followed.followers.should include(@user)
-    end
-  end
 
   
 end

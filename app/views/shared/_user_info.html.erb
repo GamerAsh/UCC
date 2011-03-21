@@ -4,8 +4,8 @@
     <span class ="user_name">
       <% current_user.name %>
     </span>
-    <span class ="microposts">
-      <%= pluralize(current_user.microposts.count, "thought") %>
+    <span class ="thoughts">
+      <%= pluralize(current_user.thoughts.count, "thought") %>
     </span>
   </a>
 </div>

@@ -13,7 +13,7 @@ module ApplicationHelper
 
 	end
 
-def logo
-    image_tag("logo.gif", :alt => "UCC logo", :class => "round")
-  end 
+#def logo
+#    image_tag("logo.gif", :alt => "UCC logo", :class => "round")
+#  end
 end

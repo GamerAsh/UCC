@@ -5,20 +5,20 @@
 			<%= gravatar_for @user%>
 			<%= @user.name %>
 			</h1>
-                  <%#= render 'follower_form' if signed_in? %>
-                  <%if @user.microposts.any? %>
-                    <table class="microposts" summary="User microposts"
-                           <%= render @microposts  %>
+      
+                  <%if @user.thoughts.any? %>
+                    <table class="thoughts" summary="User thoughts"
+                           <%= render @thoughts  %>
                     </table>
-                  <%=  will_paginate @microposts %>
+                  <%=  will_paginate @thoughts %>
                   <%  end %>
 		</td>
 		
 		<td class="sidebar round">
 			<strong>Name</strong> <%= @user.name %><br />
 			<strong>URL</strong> <%= link_to user_path(@user),(@user)%><br />
-                        <strong>Thoughts</strong> <%= @user.microposts.count %>
-		<%#= render 'shared/stats' %>
+                        <strong>Thoughts</strong> <%= @user.thoughts.count %>
+
                 </td>
 	</tr>
 	

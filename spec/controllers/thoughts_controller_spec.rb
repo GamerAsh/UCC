@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe MicropostsController do
+describe ThoughtsController do
   render_views
   
   describe "access control" do
@@ -25,14 +25,14 @@ describe MicropostsController do
         @attr ={ :content => ""}
       end
 
-      it "should not create a micropost" do
+      it "should not create a thought" do
         lambda do
-          post :create, :micropost => @attr
-        end.should_not change(Micropost, :count)
+          post :create, :thought => @attr
+        end.should_not change(Thought, :count)
       end
 
       it "should render the home page" do
-        post :create, :micropost => @attr
+        post :create, :thought => @attr
         response.should render_template('pages/home')
 
       end
@@ -43,35 +43,35 @@ describe MicropostsController do
         @attr = {:content => "Lorem Isum Dolor"}
 
       end
-      it "should create a micropost" do
+      it "should create a thought" do
         lambda do
-          post :create, :micropost => @attr
-        end.should change(Micropost, :count).by(1)
+          post :create, :thought => @attr
+        end.should change(Thought, :count).by(1)
       end
 
       it "should re-direct to root path" do
-        post :create, :micropost => @attr
+        post :create, :thought => @attr
         response.should redirect_to(root_path)
       end
 
       it "should have a flash success message" do
-        post :create, :micropost => @attr
-        flash[:success].should =~ /micropost created/i
+        post :create, :thought => @attr
+        flash[:success].should =~ /thought created/i
       end
     end
   end
 
   describe "DELETE 'destroy'" do
-    describe "for an unauthorized user" do
+    describe "for an unauthorised user" do
       before(:each) do
         @user = Factory(:user)
         wrong_user = Factory(:user, :email => Factory.next(:email))
-        @micropost = Factory(:micropost, :user => @user)
+        @thought = Factory(:thought, :user => @user)
         test_sign_in(wrong_user)
       end
 
       it "should deny access" do
-        delete :destroy, :id => @micropost
+        delete :destroy, :id => @thought
         response.should redirect_to(root_path)
       end
     end
@@ -79,16 +79,16 @@ describe MicropostsController do
     describe "for an auth user" do
       before(:each) do
         @user = test_sign_in(Factory(:user))
-        @micropost = Factory(:micropost, :user => @user)
+        @thought = Factory(:thought, :user => @user)
 
       end
 
-      it "should delete mp" do
+      it "should delete thought" do
         lambda do
-          delete :destroy, :id => @micropost
+          delete :destroy, :id => @thought
           flash[:success].should =~ /Message Deleted/i
           response.should redirect_to(root_path)
-        end.should change(Micropost, :count).by(-1)
+        end.should change(Thought, :count).by(-1)
       end
     end
   end

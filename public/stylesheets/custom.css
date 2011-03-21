@@ -1,15 +1,17 @@
-    @font-face {
+/*    @font-face {
     font-family: School;
             src: url(../fonts/SchoolScriptDashed.ttf);
-    }
+    }*/
     .container {
      width: 710px;
+     
 
     }
 
     body {
 /*            background-image: url('../images/background.gif');*/
 padding-left: 40em;
+background-color: #638cd6;
     }
 
     header {
@@ -25,7 +27,7 @@ padding-left: 40em;
             margin-top: 1em;
             font-size: 120%;
             padding: 20px;
-            background: #fff;
+            background: #638cd6;
     }
 
     section h1 {
@@ -80,7 +82,7 @@ padding-left: 40em;
     }
 
     nav ul li a:visited {
-            color: #09c;
+            color: crimson;
     }
 
     nav ul li a:hover{

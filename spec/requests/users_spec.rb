@@ -21,12 +21,12 @@ describe "Users" do
         lambda do
           visit signup_path
           fill_in "Name",         :with => "Example User"
-          fill_in "Email",        :with => "user@example.com"
+          fill_in "Email",        :with => "user@blackburn.ac.uk"
           fill_in "Password",     :with => "foobar"
           fill_in "Confirmation", :with => "foobar"
           click_button
           response.should have_selector("div.flash.success",
-                                        :content => "Welcome To The UCC")
+                                        :content => "Welcome to UCC!")
           response.should render_template('users/show')
         end.should change(User, :count).by(1)
       end

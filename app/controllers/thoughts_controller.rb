@@ -1,10 +1,10 @@
-class MicropostsController < ApplicationController
+class ThoughtsController < ApplicationController
 
   before_filter :authenticate
   before_filter :authorised_user, :only => :destroy
   def create
-    @micropost = current_user.microposts.build(params[:micropost])
-    if @micropost.save
+    @thought = current_user.thoughts.build(params[:thought])
+    if @thought.save
       redirect_to root_path, :flash => {:success => "Thought Created!"}
 
     else
@@ -16,15 +16,15 @@ class MicropostsController < ApplicationController
   end
 
   def destroy
-    @micropost.destroy
+    @thought.destroy
     redirect_to root_path, :flash => {:success => "Message Deleted!"}
   end
 
   private
 
   def authorised_user
-    @micropost = Micropost.find(params[:id])
-    redirect_to root_path unless current_user?(@micropost.user)
+    @thought = Thought.find(params[:id])
+    redirect_to root_path unless current_user?(@thought.user)
   end
 
 

@@ -16,15 +16,7 @@
 class User < ActiveRecord::Base
   attr_accessor :password
   attr_accessible :name, :email, :password, :password_confirmation
-  has_many :microposts, :dependent => :destroy
-#  has_many :relationships, :dependent => :destroy,
-#                           :foreign_key => "follower_id"
-#  has_many :reverse_relationships, :dependent => :destroy,
-#                                   :foreign_key =>"followed_id",
-#                                   :class_name => "Relationship"
-#  has_many :following, :through => :relationships, :source => :followed
-#  has_many :followers, :through => :reverse_relationships,
-#                       :source  => :follower
+  has_many :thoughts, :dependent => :destroy
   email_regex = /\A[\w+\-.]+@blackburn.ac.uk/i
   
   validates :name,  :presence   => true,
@@ -45,7 +37,7 @@ class User < ActiveRecord::Base
   end
 
   def feed
-    Micropost.all
+    Thought.all
 
   end
 

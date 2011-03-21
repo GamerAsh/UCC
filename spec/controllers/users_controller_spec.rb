@@ -15,8 +15,8 @@ describe UsersController do
     describe "for signed-in used" do
       before(:each) do
         @user = test_sign_in(Factory(:user))
-        Factory(:user, :email => "another@example.com")
-        Factory(:user, :email => "another@example.net")
+        Factory(:user, :email => "another@blackburn.ac.uk")
+#        Factory(:user, :email => "another@example.net")
 
         30.times do
           Factory(:user, :email => Factory.next(:email))
@@ -101,25 +101,25 @@ describe UsersController do
                                            :href    => user_path(@user))
     end
 
-      it "should show the user's microposts" do
-        mp1 = Factory(:micropost, :user => @user, :content => "Foo bar")
-        mp2 = Factory(:micropost, :user => @user, :content => "Baz bar")
+      it "should show the user's thoughts" do
+        mp1 = Factory(:thought, :user => @user, :content => "hahaha")
+        mp2 = Factory(:thought, :user => @user, :content => "nananana")
         get :show, :id => @user
         response.should have_selector('span.content', :content => mp1.content)
         response.should have_selector('span.content', :content => mp2.content)
       end
 
-      it "should paginate microposts" do
-        39.times { Factory(:micropost, :user => @user, :content =>"foo")}
+      it "should paginate thoughts" do
+        39.times { Factory(:thought, :user => @user, :content =>"example")}
         get :show, :id => @user
         response.should have_selector('div.pagination')
       end
 
-      it "should display the micropost count" do
-        10.times { Factory(:micropost, :user => @user, :content =>"foo")}
+      it "should display the thought count" do
+        10.times { Factory(:thought, :user => @user, :content =>"example")}
         get :show, :id => @user
         response.should have_selector('td.sidebar',
-                                      :content => @user.microposts.count.to_s)
+                                      :content => @user.thoughts.count.to_s)
       end
 
       describe "when signed in as another user" do
@@ -169,8 +169,8 @@ describe UsersController do
   end
   describe "success" do
     before(:each) do
-      @attr = { :name =>"New User", :email => "iser@example.com",
-                :password => "foobar", :password_confirmation => "foobar"
+      @attr = { :name =>"New User", :email => "user@blackburn.ac.uk",
+                :password => "testing", :password_confirmation => "testing"
 
                 }
     end
@@ -188,7 +188,7 @@ describe UsersController do
       
       it "should have a welcome message" do
         post :create, :user => @attr
-        flash[:success].should =~ /welcome to the UCC/i
+        flash[:success].should =~ /welcome to UCC!/i
       end
 
     it "should sign user in" do
@@ -252,8 +252,8 @@ describe UsersController do
 
     describe "success" do
       before(:each) do
-        @attr = { :name =>"New Name", :email => "user@example.org",
-                  :password => "barbaz", :password_confirmation => "barbaz" }
+        @attr = { :name =>"New Name", :email => "user@blackburn.ac.uk",
+                  :password => "testing", :password_confirmation => "testing" }
         
       end
 
@@ -295,7 +295,7 @@ describe UsersController do
 
     describe "signed in users" do
       before(:each) do
-        wrong_user =Factory(:user, :email => "user@example.net")
+        wrong_user = Factory(:user, :email => "user@blackburn.ac.uk")
         test_sign_in(wrong_user)
       end
 
@@ -336,7 +336,7 @@ describe UsersController do
       describe "as admin" do
 
         before(:each) do
-          @admin = Factory(:user, :email => "admin@example.com", :admin => true)
+          @admin = Factory(:user, :email => "admin@blackburn.ac.uk", :admin => true)
           test_sign_in(@admin)
         end
         it "should destroy the user" do
@@ -364,37 +364,4 @@ describe UsersController do
  end
   end
 
-  describe "follow pages " do
-    describe "when not signed in" do
-      it "should proteact following" do
-        get :following, :id => 1
-        response.should redirect_to(signin_path)
-      end
-      it "should proteact followers" do
-        get :followers, :id => 1
-        response.should redirect_to(signin_path)
-      end
-    end
-
-    describe "when signed in" do
-      before(:each) do
-        @user = test_sign_in(Factory(:user))
-        @other_user = Factory(:user, :email => Factory.next(:email))
-        @user.follow!(@other_user)
-
-      end
-
-      it "should show user following" do
-        get :following, :id => @user
-        response.should have_selector('a', :href => user_path(@other_user),
-                                           :content => @other_user.name)
-      end
-
-      it "should show user follwers" do
-        get :followers, :id => @other_user
-         response.should have_selector('a', :href => user_path(@user),
-                                            :content => @user.name)
-      end
-    end
-  end
 end
