@@ -44,7 +44,7 @@ end
     click_link "Sign up now!"
     response.should have_selector('title', :content => "Sign up")
     
-    response.should have_selector('a[href="/"]>img')
+#    response.should have_selector('a[href="/"]>img')
     
 end
 describe "when not signed in" do

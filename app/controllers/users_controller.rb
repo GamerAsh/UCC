@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :authenticate, :except => [:show, :new, :create]
+  before_filter :authenticate, :except => [:show, :new, :create, :recover]
   before_filter :correct_user, :only => [:edit, :update]
   before_filter :admin_user,   :only => :destroy
 
@@ -19,12 +19,17 @@ class UsersController < ApplicationController
     @title = "Sign up"
   end
 
+  def recover
+    
+  end
+
   def create    
     @user = User.new(params[:user])
     if @user.save
       sign_in @user
       
       redirect_to @user, :flash => {:success => "Welcome to UCC!"}
+      Welcome.registration_confirmation(@user).deliver
     else
 
     @title = "Sign up"

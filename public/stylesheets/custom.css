@@ -10,24 +10,29 @@
 
     body {
 /*            background-image: url('../images/background.gif');*/
-padding-left: 40em;
-background-color: #638cd6;
+/*padding-left: 40em;*/
+/*background-color: #638cd6;*/
+width:100%;
     }
 
     header {
+        display: block;
             padding-top: 20px;
+            background-color: #638cd6;
+            background-repeat: repeat-x;
 
     }
-
+/*
     header img {
             padding: 1em;
-    }
+    }*/
 
     section {
             margin-top: 1em;
             font-size: 120%;
             padding: 20px;
-            background: #638cd6;
+            width: 100%;
+/*            background: #638cd6;*/
     }
 
     section h1 {

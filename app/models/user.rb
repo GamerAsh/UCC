@@ -41,18 +41,7 @@ class User < ActiveRecord::Base
 
   end
 
-#  def following?(followed)
-#    relationships.find_by_followed_id(followed)
-#
-#  end
-#
-#  def follow!(followed)
-#    relationships.create!(:followed_id => followed.id)
-#  end
-#
-#  def unfollow!(followed)
-#    relationships.find_by_followed_id(followed).destroy
-#  end
+
   
 class << self
   def authenticate(email, submitted_password)
@@ -79,6 +68,10 @@ class << self
   
   def encrypt(string)
     secure_hash("#{salt}--#{string}") 
+  end
+
+  def decrypt()
+    
   end
   
   def secure_hash(string)
