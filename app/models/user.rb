@@ -17,7 +17,9 @@ class User < ActiveRecord::Base
   attr_accessor :password
   attr_accessible :name, :email, :password, :password_confirmation
   has_many :thoughts, :dependent => :destroy
-  email_regex = /\A[\w+\-.]+@blackburn.ac.uk/i
+  
+#  EMAIL_STAFF_REGEX = /\A[\w+\-.]+@mail.blackburn.ac.uk/i
+  email_regex = /\A[\w+\-.]+@+(blackburn.ac.uk|mail.blackburn.ac.uk)/i
   
   validates :name,  :presence   => true,
                     :length     => { :maximum => 50}

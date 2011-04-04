@@ -27,8 +27,10 @@ ActiveRecord::Schema.define(:version => 20110321015603) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "encrypted_password"
+    t.string   "recover_password"
     t.string   "salt"
     t.boolean  "admin",              :default => false
+    t.boolean  "Recover",            :default => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
