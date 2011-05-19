@@ -1,0 +1,29 @@
+<% if signed_in? %>
+
+<table class="front" summary="For signed-in users">
+  <tr>
+    <td class="main">
+      <h1 class="thought">What are your thoughts?</h1>
+      <%= render 'shared/thought_form'  %>
+      <%= render 'shared/feed'  %>
+    </td>
+    <td class="sidebar round">
+      <%= render 'shared/user_info' %>
+      <%#= render 'shared/stats' %>
+    </td>
+  </tr>
+
+
+</table>
+
+
+
+<% else %>
+
+<h1>Home</h1>
+<p>Welcome to UCC! Please sign in, and become apart of the social network
+dedicated to connecting UCBC together.</p>
+
+<%=link_to "Sign up now!", signup_path, :class => "signup_button round" %>
+
+<%end%>
