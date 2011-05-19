@@ -18,6 +18,29 @@
 			<strong>Name</strong> <%= @user.name %><br />
 			<strong>URL</strong> <%= link_to user_path(@user),(@user)%><br />
                         <strong>Thoughts</strong> <%= @user.thoughts.count %>
+          <%= link_to "Add as a friend", friendships_path(:friend_id => @user), :method => :post %>
+          <h2>Your Friends</h2>
+            <ul>
+              <% for user in @user.friends %>
+              <li><%=h user.name %></li>
+              <% end %>
+            </ul>
+          <h2>Your Friends</h2>
+<ul>
+  <% for friendship in @user.friendships %>
+  <li>
+    <%= h friendship.friend.name %>
+    (<%= link_to "remove", friendship, :method => :delete %>)
+  </li>
+  <% end %>
+</ul>
+
+          <h2>Users Who Have Befriended You</h2>
+<ul>
+  <% for user in @user.inverse_friends %>
+  <li><%= h user.name %></li>
+  <% end %>
+</ul>
 
                 </td>
 	</tr>

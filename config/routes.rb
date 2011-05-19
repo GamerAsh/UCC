@@ -1,8 +1,9 @@
 UCC::Application.routes.draw do
-  resources :recover, :only =>[:new, :create]
+  resources :friendships
   resources :users   
   resources :sessions,      :only => [:new, :create, :destroy]
   resources :thoughts,    :only => [:create, :destroy]
+
 
   root :to => 'pages#home'
   match '/contact', :to => 'pages#contact'

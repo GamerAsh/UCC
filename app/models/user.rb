@@ -16,8 +16,15 @@
 class User < ActiveRecord::Base
   attr_accessor :password
   attr_accessible :name, :email, :password, :password_confirmation
+
+  has_many :friendships
+  has_many :friends, :through => :friendships
+
+    has_many :inverse_friendships, :class_name => "Friendship", :foreign_key => "friend_id"
+  has_many :inverse_friends, :through => :inverse_friendships, :source => :user
+
   has_many :thoughts, :dependent => :destroy
-  
+
 #  EMAIL_STAFF_REGEX = /\A[\w+\-.]+@mail.blackburn.ac.uk/i
   email_regex = /\A[\w+\-.]+@+(blackburn.ac.uk|mail.blackburn.ac.uk)/i
   
