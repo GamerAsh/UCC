@@ -1,3 +1,0 @@
-(in /home/ash/UCC)
-==  CreateThoughts: migrating =================================================
--- create_table(:thoughts)
