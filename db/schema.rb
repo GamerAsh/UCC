@@ -19,6 +19,16 @@ ActiveRecord::Schema.define(:version => 20110519081425) do
     t.datetime "updated_at"
   end
 
+  create_table "relationships", :force => true do |t|
+    t.integer  "follower_id"
+    t.integer  "followed_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "relationships", ["followed_id"], :name => "index_relationships_on_followed_id"
+  add_index "relationships", ["follower_id"], :name => "index_relationships_on_follower_id"
+
   create_table "thoughts", :force => true do |t|
     t.string   "content"
     t.integer  "user_id"

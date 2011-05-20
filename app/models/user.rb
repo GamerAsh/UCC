@@ -17,11 +17,14 @@ class User < ActiveRecord::Base
   attr_accessor :password
   attr_accessible :name, :email, :password, :password_confirmation
 
-  has_many :friendships
-  has_many :friends, :through => :friendships
-
-    has_many :inverse_friendships, :class_name => "Friendship", :foreign_key => "friend_id"
-  has_many :inverse_friends, :through => :inverse_friendships, :source => :user
+ has_many :relationships, :dependent => :destroy,
+                           :foreign_key => "follower_id"
+  has_many :reverse_relationships, :dependent => :destroy,
+                                   :foreign_key =>"followed_id",
+                                   :class_name => "Relationship"
+  has_many :following, :through => :relationships, :source => :followed
+  has_many :followers, :through => :reverse_relationships,
+                       :source  => :follower
 
   has_many :thoughts, :dependent => :destroy
 
@@ -67,7 +70,18 @@ class << self
     
 
   end
-  
+  def following?(followed)
+    relationships.find_by_followed_id(followed)
+
+  end
+
+  def follow!(followed)
+    relationships.create!(:followed_id => followed.id)
+  end
+
+  def unfollow!(followed)
+    relationships.find_by_followed_id(followed).destroy
+  end
   private
   
     def encrypt_password
