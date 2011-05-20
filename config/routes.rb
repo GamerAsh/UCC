@@ -1,10 +1,13 @@
 UCC::Application.routes.draw do
 
     resources :users do
+    resources :messages
     member do
       get :following, :followers
+
     end
-  end
+    end
+  resources :messages
   resources :relationships
   resources :sessions,      :only => [:new, :create, :destroy]
   resources :thoughts,    :only => [:create, :destroy]

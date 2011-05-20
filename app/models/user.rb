@@ -26,6 +26,10 @@ class User < ActiveRecord::Base
   has_many :followers, :through => :reverse_relationships,
                        :source  => :follower
 
+  has_many :sent_messages, :class_name => 'Message', :foreign_key =>'sender_id', :order=>'created_at DESC'
+  has_many :received_messages, :class_name => 'Message', :foreign_key =>'recipient_id', :order=>'created_at DESC'
+  has_many :unread_messages, :class_name => 'Message', :foreign_key =>'recipient_id', :conditions => {:read => false}
+
   has_many :thoughts, :dependent => :destroy
 
 #  EMAIL_STAFF_REGEX = /\A[\w+\-.]+@mail.blackburn.ac.uk/i
@@ -49,7 +53,7 @@ class User < ActiveRecord::Base
   end
 
   def feed
-    Thought.all
+    Thought.from_users_followed_by(self)
 
   end
 

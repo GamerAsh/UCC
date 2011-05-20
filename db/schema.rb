@@ -10,11 +10,21 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110519081425) do
+ActiveRecord::Schema.define(:version => 20110520055825) do
 
   create_table "friendships", :force => true do |t|
     t.integer  "user_id"
     t.integer  "friend_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "messages", :force => true do |t|
+    t.string   "subject"
+    t.text     "body"
+    t.integer  "sender_id"
+    t.integer  "recipient_id"
+    t.boolean  "read",         :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
