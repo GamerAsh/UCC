@@ -18,7 +18,11 @@
 			<strong>Name</strong> <%= @user.name %><br />
 			<strong>URL</strong> <%= link_to user_path(@user),(@user)%><br />
 
-                        <strong>Thoughts</strong> <%= @user.thoughts.count %>
+                        <strong>Thoughts</strong> <%= @user.thoughts.count %> <br />
+          		<% if signed_in? && current_user != @user %>
+			<%= link_to 'Send', new_message_path({:recipient_id=>@user.id}) %> <%= @user.name %> a message
+			<br/>
+              <% end %>
           <%= render 'shared/stats' %>
 
 

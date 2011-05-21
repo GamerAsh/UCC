@@ -2,14 +2,25 @@ class MessagesController < ApplicationController
 
 
   before_filter :authenticate
+  before_filter :correct_user, :only => [:show ]
   
                             
   def index
-    user = User.find(params[:user_id])
-    @sent_messages = user.sent_messages
-    @received_messages = user.received_messages
+
+
+    @user = User.find(params[:user_id])
+    if current_user == @user
+    @sent_messages = @user.sent_messages
+    @received_messages = @user.received_messages
     respond_to do |format|
       format.html # index.html.erb
+    end
+
+
+      else
+
+    redirect_to user_messages_url(current_user)
+
     end
   end
 
@@ -81,4 +92,16 @@ class MessagesController < ApplicationController
 
     end
   end
+
+  private
+  def correct_user
+      @user = User.find(params[:id])
+      @message = Message.find(params[:id])
+      unless (current_user == @message.sender or
+              current_user == @message.recipient or
+              current_user == @user)
+        redirect_to user_path(current_user)
+      end
+
+    end
 end
