@@ -7,7 +7,7 @@
 		<div class="message_detail">
 			<b>Sender:</b> <%= @message.sender.name %><br/>
 			<b>Recipient:</b> <%= @message.recipient.name %><br/>
-			<b>Sent:</b> <%= @message.created_at.to_s(:event_brief) %>
+			<b>Sent:</b> <%= @message.created_at %>
 		</div>
 	</div>
 	<div class="message_body">
