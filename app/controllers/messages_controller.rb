@@ -57,7 +57,6 @@ class MessagesController < ApplicationController
     respond_to do |format|
       if @message.save
         flash[:notice] = 'Message was successfully created.'
-        # TODO send email notification to recipient
         
         format.html { redirect_to(@message) }
 

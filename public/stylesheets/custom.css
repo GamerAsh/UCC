@@ -94,26 +94,25 @@ div.topbar ul li{
 
 div.topbar ul li.active {
     width:128px;
-    height:18px;
+    /*height:18px;*/
     margin:0;
 }
 div.topbar ul li.active a{
     background:url(../images/tab_act.gif) no-repeat 0 0;
     width:128px;
-    height:18px;
+    /*height:18px;*/
     color:#0a7285;
-    padding-top:8px;
+    /*padding-top:8px;*/
 }
 
 div.topbar ul li.active a:hover{
     background:url(../images/tab_act.gif) no-repeat 0 0 !important;
-    width:128px;
+    /*width:128px;*/
 
 }
 
 div.topbar ul li a:hover{
     background:url(../images/tab_act_hover.gif) no-repeat 0 0 !important;
-    width:128px;
 
 }
 
@@ -167,7 +166,13 @@ div.topbar ul li a:hover{
     }
 
  .leftcol {
+
      background-color:white;
+     text-align: center;
+
+     -moz-border-radius: 10px;
+     -webkit-border-radius: 10px;
+      border-radius: 10px;
  }
 /*     round corners*/
 
