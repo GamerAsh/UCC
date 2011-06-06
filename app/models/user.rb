@@ -1,11 +1,15 @@
 # == Schema Information
-# Schema version: 20110226055225
+# Schema version: 20110531161221
 #
 # Table name: users
 #
 #  id                 :integer         not null, primary key
 #  name               :string(255)
 #  email              :string(255)
+#  aboutme            :text
+#  course             :string(255)
+#  faveclasses        :text
+#  interests          :text
 #  created_at         :datetime
 #  updated_at         :datetime
 #  encrypted_password :string(255)
@@ -15,7 +19,7 @@
 
 class User < ActiveRecord::Base
   attr_accessor :password
-  attr_accessible :name, :email, :password, :password_confirmation
+  attr_accessible :name, :email, :aboutme, :course, :faveclasses, :interests, :password, :password_confirmation
 
  has_many :relationships, :dependent => :destroy,
                            :foreign_key => "follower_id"
@@ -32,11 +36,21 @@ class User < ActiveRecord::Base
 
   has_many :thoughts, :dependent => :destroy
 
+  has_many :wall_messages, :order => 'created_at DESC'
+
 #  EMAIL_STAFF_REGEX = /\A[\w+\-.]+@mail.blackburn.ac.uk/i
   email_regex = /\A[\w+\-.]+@+(blackburn.ac.uk|mail.blackburn.ac.uk)/i
   
   validates :name,  :presence   => true,
                     :length     => { :maximum => 50}
+  validates :aboutme,  :presence   => true,
+                    :length     => { :maximum => 300}
+  validates :course,  :presence   => true,
+                    :length     => { :maximum => 50}
+  validates :faveclasses,  :presence   => true,
+                    :length     => { :maximum => 300}
+  validates :interests,  :presence   => true,
+                    :length     => { :maximum => 300}
   validates :email, :presence   => true,
                     :format     => { :with => email_regex },
                     :uniqueness => { :case_sensitive => false}

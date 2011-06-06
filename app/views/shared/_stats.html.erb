@@ -19,4 +19,15 @@
       </td>
     </tr>
 </table>
+
+       <strong>Name:</strong> <%= @user.name %>
+        <br/>
+        <strong>URL:</strong> <%= link_to user_path(@user), (@user) %>
+        <br/>
+        <strong>About Me:</strong>  <%= @user.aboutme    %><br/>
+        <strong>Course:</strong> <%= @user.course %><br/>
+  <strong>Favourite Classes:</strong> <%= @user.faveclasses %> <br/>
+  <strong>Interests:</strong>  <%= @user.interests %> <br/>
+
+        <strong>Thoughts</strong> <%= @user.thoughts.count %> <br/>
 </div>

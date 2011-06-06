@@ -2,8 +2,10 @@ UCC::Application.routes.draw do
 
     resources :users do
     resources :messages
+    resources :wall_messages
     member do
       get :following, :followers
+    resources :wall_messages
 
     end
     end
@@ -11,6 +13,7 @@ UCC::Application.routes.draw do
   resources :relationships
   resources :sessions,      :only => [:new, :create, :destroy]
   resources :thoughts,    :only => [:create, :destroy]
+    resources :wall_messages
 
 
   root :to => 'pages#home'

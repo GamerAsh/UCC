@@ -10,6 +10,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @thoughts = @user.thoughts.paginate(:page => params[:page])
+#    @wall_messages = @user
     @title = @user.name
   end
 
